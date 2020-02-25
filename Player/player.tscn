@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Sprites/Character/tile020.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Character/tile008.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Character/tile009.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Character/tile000.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Character/tile004.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Character/tile010.png" type="Texture" id=6]
+[ext_resource path="res://Player/KinematicBody2D.gd" type="Script" id=7]
+[ext_resource path="res://Sprites/Tileset/Sky.png" type="Texture" id=8]
+[ext_resource path="res://Interface/HealthBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Sprites/Character/tile022.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Character/tile003.png" type="Texture" id=11]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Run",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 20, 22 )
+
+[node name="Adventurer" type="KinematicBody2D"]
+position = Vector2( 64, 322 )
+script = ExtResource( 7 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+animation = "Attack"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 1 )
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 640, 640 )
+
+[node name="Sky" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 237.367, 496.919 )
+texture = ExtResource( 8 )
+offset = Vector2( 50, 0 )
+
+[node name="HealthBar" parent="." instance=ExtResource( 9 )]
+margin_left = -37.9899
+margin_top = -41.2932
+margin_right = 2.01013
+margin_bottom = -1.29321
+rect_scale = Vector2( 0.2, 0.2 )
+
+[node name="invulnerability" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+[connection signal="health_updated" from="." to="HealthBar" method="_on_Adventurer_health_updated"]
