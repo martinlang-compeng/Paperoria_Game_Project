@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/Tileset/[32x32] Rocky Grass.png" type="Texture" id=1]
+[ext_resource path="res://TileSet/Tile 0.gd" type="Script" id=2]
+[ext_resource path="res://TileSet/Tile 1.gd" type="Script" id=3]
+[ext_resource path="res://TileSet/Tile 2.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Tileset/Spike_Pixel.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 15.976, 9.20641 )
+
+[node name="grassDirtTiles" type="Node"]
+
+[node name="Grass_0" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 96, 0, 32, 32 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Grass_0"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grass_0/StaticBody2D"]
+visible = false
+position = Vector2( 16, 16 )
+shape = SubResource( 1 )
+
+[node name="DirtRock" type="Sprite" parent="."]
+position = Vector2( 64, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 128, 32, 32, 32 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="DirtRock"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DirtRock/StaticBody2D"]
+visible = false
+position = Vector2( 16, 16 )
+shape = SubResource( 1 )
+
+[node name="Grass_1" type="Sprite" parent="."]
+position = Vector2( 128, 0 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 224, 160, 32, 32 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Grass_1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grass_1/StaticBody2D"]
+visible = false
+position = Vector2( 16, 16 )
+shape = SubResource( 1 )
+
+[node name="Spikes" type="Sprite" parent="."]
+position = Vector2( 0.102776, 64.025 )
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Spikes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spikes/StaticBody2D"]
+position = Vector2( 16, 22.5 )
+shape = SubResource( 2 )
