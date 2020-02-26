@@ -1,6 +1,5 @@
 extends Node
 
-var collision_pos = []
 var cpos
 var label_value = 0
 
@@ -19,16 +18,47 @@ func _on_Adventurer_collided(collision):
 		if tile_title == "Spikes":
 			$Adventurer.damage(10)
 			$CanvasLayer/Interface/HeathBar._on_Adventurer_health_updated($Adventurer.health)
-		
+	pass # Replace with function body.
+
+
+func _on_Adventurer_blockplace():
+	if label_value > 0:
 		if $Adventurer/Sprite.flip_h:
-			if tile_pos[1] == cpos[1] and Input.is_key_pressed(KEY_E) and tile_title != "Spikes" and tile_id != -1:
-				$TileMap.set_cellv(tile_pos, -1)
-				label_value += 1
-				print("hi")
+			cpos.x -= 1
+			var tile_id = $TileMap.get_cellv(cpos)
+			if tile_id == -1:
+				$TileMap.set_cellv(cpos, 1)
+				label_value -= 1
 				$CanvasLayer/Interface/blockCounter/Label.text = str(round(label_value))
 		else:
-			if tile_pos[1] == cpos[1] and Input.is_key_pressed(KEY_E) and tile_title != "Spikes" and tile_id != -1:
-				$TileMap.set_cellv(tile_pos, -1)
-				label_value += 1
+			cpos.x += 1
+			var tile_id = $TileMap.get_cellv(cpos)
+			if tile_id == -1:
+				$TileMap.set_cellv(cpos, 1)
+				label_value -= 1
 				$CanvasLayer/Interface/blockCounter/Label.text = str(round(label_value))
+	pass # Replace with function body.
+
+
+func _on_Adventurer_blockdestroy():
+	if $Adventurer/Sprite.flip_h:
+		cpos.x -= 1
+		var tile_id = $TileMap.get_cellv(cpos)
+		if tile_id != -1 and tile_id != 3:
+			$TileMap.set_cellv(cpos, -1)
+			label_value += 1
+			$CanvasLayer/Interface/blockCounter/Label.text = str(round(label_value))
+	else:
+		cpos.x += 1
+		var tile_id = $TileMap.get_cellv(cpos)
+		if tile_id != -1 and tile_id != 3:
+			$TileMap.set_cellv(cpos, -1)
+			label_value += 1
+			$CanvasLayer/Interface/blockCounter/Label.text = str(round(label_value))
+	pass # Replace with function body.
+
+
+func _on_Adventurer_kill():
+	$Adventurer.position = $RespawnPoint.position
+	$CanvasLayer/Interface/HeathBar._on_Adventurer_health_updated($Adventurer.max_health)
 	pass # Replace with function body.
