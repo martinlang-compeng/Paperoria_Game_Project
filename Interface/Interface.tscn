@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Interface/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Interface/blockCounter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Interface/Interface.gd" type="Script" id=3]
 
 [node name="Interface" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -19,3 +21,14 @@ margin_left = 917.711
 margin_top = 11.8262
 margin_right = 1011.71
 margin_bottom = 47.8262
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 924.096
+margin_top = 553.096
+margin_right = 1012.1
+margin_bottom = 587.096
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
