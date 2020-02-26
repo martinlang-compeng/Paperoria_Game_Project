@@ -1,5 +1,5 @@
 # Paperoria_Game_Project
-* The game is presented in a horizontal slice format to give a general idea what the finished product would be
+* The game is presented in a horizontal slice format to give a general idea of what the finished product would be
 
 ## Features:
 The game includes several features that were listed in the original game pitch:
