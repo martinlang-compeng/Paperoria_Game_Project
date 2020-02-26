@@ -1,3 +1,8 @@
+# -------------------------------------------------------
+# Module Name: HealthBar.gd
+# Author: Martin Lang
+# Date of Creation: February 23, 2020
+# -------------------------------------------------------
 extends Control
 
 onready var health_over = $HealthOver
@@ -15,4 +20,3 @@ func _on_Adventurer_health_updated(health):
 	# Tween property allows for smooth transition between health values
 	update_tween.interpolate_property(health_under,"value", health_under.value, health, 0.4, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	update_tween.start()
-	pass # Replace with function body.
