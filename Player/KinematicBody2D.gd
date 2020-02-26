@@ -3,6 +3,8 @@ extends KinematicBody2D
 signal health_updated(health)
 signal kill()
 signal collided(collision)
+signal blockplace()
+signal blockdestroy()
 
 const UP_DIR = Vector2(0,-1)
 const GRAVITY = 20
@@ -13,7 +15,8 @@ const JUMP_HEIGHT = -500
 var motion = Vector2()
 export (float) var max_health = 100
 onready var health = max_health setget _set_health
-onready var invulnerability = $invulnerability
+onready var invulnerability = $Invulnearability
+onready var respawn = $RespawnTimer
 	
 func _physics_process(delta):
 	motion.y += GRAVITY
@@ -38,6 +41,10 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 		$Sprite.play("Run")
 	elif Input.is_key_pressed(KEY_E) and health != 0:
+		emit_signal("blockdestroy")
+		$Sprite.play("Attack")
+	elif Input.is_key_pressed(KEY_Q) and health != 0:
+		emit_signal("blockplace")
 		$Sprite.play("Attack")
 	elif health != 0:
 		$Sprite.play("Idle")
@@ -45,6 +52,11 @@ func _physics_process(delta):
 	else:
 		$Sprite.play("dead")
 		motion.x = 0
+		emit_signal("kill")
+		_set_health(max_health)
+		health = max_health
+
+
 	
 	
 	if is_on_floor():
@@ -84,7 +96,3 @@ func _set_health(value):
 	
 	if health != prev_health:
 		emit_signal("health_updated", health)
-		if health == 0:
-			$Sprite.play("dead")
-			kill()
-			emit_signal("kill")

@@ -19,25 +19,25 @@ animations = [ {
 "name": "Fall",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "dead",
+"name": "Jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "Run",
 "speed": 7.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
@@ -84,7 +84,10 @@ margin_right = 2.01013
 margin_bottom = -1.29321
 rect_scale = Vector2( 0.2, 0.2 )
 
-[node name="invulnerability" type="Timer" parent="."]
+[node name="Invulnearability" type="Timer" parent="."]
 wait_time = 0.8
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="."]
 one_shot = true
 [connection signal="health_updated" from="." to="HealthBar" method="_on_Adventurer_health_updated"]
